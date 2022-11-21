@@ -490,7 +490,7 @@ final class Auth extends UserManager {
 	private function createRememberDirective($userId, $duration) {
 		$selector = self::createRandomString(24);
 		$token = self::createRandomString(32);
-		$tokenHashed = \password_hash($token, \PASSWORD_DEFAULT);
+		$tokenHashed = \password_hash($token, \PASSWORD_ARGON2ID, ['memory_cost' => 2048, 'time_cost' => 4, 'threads' => 4]);
 		$expires = \time() + ((int) $duration);
 
 		try {
@@ -1200,7 +1200,7 @@ final class Auth extends UserManager {
 	private function createPasswordResetRequest($userId, $expiresAfter, callable $callback) {
 		$selector = self::createRandomString(20);
 		$token = self::createRandomString(20);
-		$tokenHashed = \password_hash($token, \PASSWORD_DEFAULT);
+		$tokenHashed = \password_hash($token, \PASSWORD_ARGON2ID, ['memory_cost' => 2048, 'time_cost' => 4, 'threads' => 4]);
 		$expiresAt = \time() + $expiresAfter;
 
 		try {
