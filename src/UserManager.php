@@ -154,7 +154,7 @@ abstract class UserManager {
 			}
 		}
 
-		$password = \password_hash($password, \PASSWORD_DEFAULT);
+		$password = \password_hash($password, \PASSWORD_ARGON2ID, ['memory_cost' => 2048, 'time_cost' => 4, 'threads' => 4]);
 		$verified = \is_callable($callback) ? 0 : 1;
 
 		try {
@@ -195,7 +195,7 @@ abstract class UserManager {
 	 * @throws AuthError if an internal problem occurred (do *not* catch)
 	 */
 	protected function updatePasswordInternal($userId, $newPassword) {
-		$newPassword = \password_hash($newPassword, \PASSWORD_DEFAULT);
+		$newPassword = \password_hash($newPassword, \PASSWORD_ARGON2ID, ['memory_cost' => 2048, 'time_cost' => 4, 'threads' => 4]);
 
 		try {
 			$affected = $this->db->update(
@@ -342,7 +342,7 @@ abstract class UserManager {
 	protected function createConfirmationRequest($userId, $email, callable $callback) {
 		$selector = self::createRandomString(16);
 		$token = self::createRandomString(16);
-		$tokenHashed = \password_hash($token, \PASSWORD_DEFAULT);
+		$tokenHashed = \password_hash($token, \PASSWORD_ARGON2ID, ['memory_cost' => 2048, 'time_cost' => 4, 'threads' => 4]);
 		$expires = \time() + 60 * 60 * 24;
 
 		try {
