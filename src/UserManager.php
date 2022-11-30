@@ -242,6 +242,26 @@ abstract class UserManager {
 		$_SESSION[self::SESSION_FIELD_REMEMBERED] = $remembered;
 		$_SESSION[self::SESSION_FIELD_LAST_RESYNC] = \time();
 	}
+	
+	public function canLeaveImpersonation() {
+	    return isset($_SESSION) && isset($_SESSION['impersonator']) && isset($_SESSION['impersonator'][self::SESSION_FIELD_LOGGED_IN]) && $_SESSION['impersonator'][self::SESSION_FIELD_LOGGED_IN] === true;
+	}
+
+	public function leaveImpersonation() {
+	    if ($this->canLeaveImpersonation()) {
+		$_SESSION[self::SESSION_FIELD_LOGGED_IN] = $_SESSION['impersonator'][self::SESSION_FIELD_LOGGED_IN];
+		$_SESSION[self::SESSION_FIELD_USER_ID] = $_SESSION['impersonator'][self::SESSION_FIELD_USER_ID];
+		$_SESSION[self::SESSION_FIELD_EMAIL] = $_SESSION['impersonator'][self::SESSION_FIELD_EMAIL];
+		$_SESSION[self::SESSION_FIELD_USERNAME] = $_SESSION['impersonator'][self::SESSION_FIELD_USERNAME];
+		$_SESSION[self::SESSION_FIELD_STATUS] = $_SESSION['impersonator'][self::SESSION_FIELD_STATUS];
+		$_SESSION[self::SESSION_FIELD_ROLES] = $_SESSION['impersonator'][self::SESSION_FIELD_ROLES];
+		$_SESSION[self::SESSION_FIELD_FORCE_LOGOUT] = $_SESSION['impersonator'][self::SESSION_FIELD_FORCE_LOGOUT];
+		$_SESSION[self::SESSION_FIELD_REMEMBERED] = $_SESSION['impersonator'][self::SESSION_FIELD_REMEMBERED];
+		$_SESSION[self::SESSION_FIELD_LAST_RESYNC] = $_SESSION['impersonator'][self::SESSION_FIELD_LAST_RESYNC];
+
+		unset($_SESSION['impersonator']);
+	    }
+	}
 
 	/**
 	 * Returns the requested user data for the account with the specified username (if any)
