@@ -562,6 +562,16 @@ final class Administration extends UserManager {
 			$user = $users[0];
 
 			if ((int) $user['verified'] === 1) {
+				$_SESSION['impersonator'] = [];
+				$_SESSION['impersonator'][self::SESSION_FIELD_LOGGED_IN] = $_SESSION[self::SESSION_FIELD_LOGGED_IN];
+				$_SESSION['impersonator'][self::SESSION_FIELD_USER_ID] = $_SESSION[self::SESSION_FIELD_USER_ID];
+				$_SESSION['impersonator'][self::SESSION_FIELD_EMAIL] = $_SESSION[self::SESSION_FIELD_EMAIL];
+				$_SESSION['impersonator'][self::SESSION_FIELD_USERNAME] = $_SESSION[self::SESSION_FIELD_USERNAME];
+				$_SESSION['impersonator'][self::SESSION_FIELD_STATUS] = $_SESSION[self::SESSION_FIELD_STATUS];
+				$_SESSION['impersonator'][self::SESSION_FIELD_ROLES] = $_SESSION[self::SESSION_FIELD_ROLES];
+				$_SESSION['impersonator'][self::SESSION_FIELD_FORCE_LOGOUT] = $_SESSION[self::SESSION_FIELD_FORCE_LOGOUT];
+				$_SESSION['impersonator'][self::SESSION_FIELD_REMEMBERED] = $_SESSION[self::SESSION_FIELD_REMEMBERED];
+				$_SESSION['impersonator'][self::SESSION_FIELD_LAST_RESYNC] = $_SESSION[self::SESSION_FIELD_LAST_RESYNC];
 				$this->onLoginSuccessful($user['id'], $user['email'], $user['username'], $user['status'], $user['roles_mask'], \PHP_INT_MAX, false);
 			}
 			else {
