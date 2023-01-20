@@ -6,7 +6,7 @@
  * Licensed under the MIT License (https://opensource.org/licenses/MIT)
  */
 
-namespace Delight\Auth;
+namespace Pinga\Auth;
 
 final class Role {
 
