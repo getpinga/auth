@@ -1,10 +1,6 @@
-# Auth
+# Pinga Auth
 
 **Authentication for PHP. Simple, lightweight and secure.**
-
-Written once, to be used everywhere.
-
-Completely framework-agnostic and database-agnostic.
 
 ## Why do I need this?
 
@@ -16,7 +12,7 @@ Completely framework-agnostic and database-agnostic.
 
 ## Requirements
 
- * PHP 5.6.0+
+ * PHP 8.1.0+
    * PDO (PHP Data Objects) extension (`pdo`)
      * MySQL Native Driver (`mysqlnd`) **or** PostgreSQL driver (`pgsql`) **or** SQLite driver (`sqlite`)
    * OpenSSL extension (`openssl`)
@@ -27,7 +23,7 @@ Completely framework-agnostic and database-agnostic.
  1. Include the library via Composer [[?]](https://github.com/delight-im/Knowledge/blob/master/Composer%20(PHP).md):
 
     ```
-    $ composer require delight-im/auth
+    $ composer require getpinga/pinga-auth
     ```
 
  1. Include the Composer autoloader:
