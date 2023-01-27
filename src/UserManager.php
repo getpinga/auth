@@ -1,19 +1,22 @@
 <?php
 
-/*
- * PHP-Auth (https://github.com/delight-im/PHP-Auth)
- * Copyright (c) delight.im (https://www.delight.im/)
- * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+/**
+ * Pinga Auth
+ *
+ * Written in 2023 by Taras Kondratyuk (https://getpinga.com)
+ * Based on PHP-Auth (https://github.com/delight-im/PHP-Auth) by delight.im (https://www.delight.im/)
+ *
+ * @license MIT
  */
 
 namespace Pinga\Auth;
 
 use Delight\Base64\Base64;
 use Delight\Cookie\Session;
-use Delight\Db\PdoDatabase;
-use Delight\Db\PdoDsn;
-use Delight\Db\Throwable\Error;
-use Delight\Db\Throwable\IntegrityConstraintViolationException;
+use Pinga\Db\PdoDatabase;
+use Pinga\Db\PdoDsn;
+use Pinga\Db\Throwable\Error;
+use Pinga\Db\Throwable\IntegrityConstraintViolationException;
 
 /**
  * Abstract base class for components implementing user management
