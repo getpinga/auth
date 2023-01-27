@@ -2,6 +2,8 @@
 
 **Authentication for PHP. Simple, lightweight and secure.**
 
+Based on estento/PHP-Auth-Argon and delight-im/PHP-Auth
+
 ## Why do I need this?
 
  * There are [tons](https://www.troyhunt.com/whos-who-of-bad-password-practices/) [of](https://blog.codinghorror.com/password-rules-are-bullshit/) [websites](https://badpasswordpolicies.tumblr.com/) with weak authentication systems. Don’t build such a site.
