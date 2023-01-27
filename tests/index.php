@@ -309,10 +309,10 @@ function processRequestData(\Pinga\Auth\Auth $auth) {
 				try {
 					return $auth->reconfirmPassword($_POST['password']) ? 'correct' : 'wrong';
 				}
-				catch (\Delight\Auth\NotLoggedInException $e) {
+				catch (\Pinga\Auth\NotLoggedInException $e) {
 					return 'not logged in';
 				}
-				catch (\Delight\Auth\TooManyRequestsException $e) {
+				catch (\Pinga\Auth\TooManyRequestsException $e) {
 					return 'too many requests';
 				}
 			}
