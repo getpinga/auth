@@ -1,16 +1,19 @@
 <?php
 
-/*
- * PHP-Auth (https://github.com/delight-im/PHP-Auth)
- * Copyright (c) delight.im (https://www.delight.im/)
- * Licensed under the MIT License (https://opensource.org/licenses/MIT)
+/**
+ * Pinga Auth
+ *
+ * Written in 2023 by Taras Kondratyuk (https://getpinga.com)
+ * Based on PHP-Auth (https://github.com/delight-im/PHP-Auth) by delight.im (https://www.delight.im/)
+ *
+ * @license MIT
  */
 
 namespace Pinga\Auth;
 
-use Delight\Db\PdoDatabase;
-use Delight\Db\PdoDsn;
-use Delight\Db\Throwable\Error;
+use Pinga\Db\PdoDatabase;
+use Pinga\Db\PdoDsn;
+use Pinga\Db\Throwable\Error;
 
 /** Component that can be used for administrative tasks by privileged and authorized users */
 final class Administration extends UserManager {
