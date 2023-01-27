@@ -1,5 +1,5 @@
 {
-	"name": "pinga/pinga-auth",
+	"name": "pinga/auth",
 	"description": "Authentication for PHP. Simple, lightweight and secure.",
 	"require": {
 		"php": ">=8.1.0",
