@@ -11,9 +11,9 @@
 
 namespace Pinga\Auth;
 
-use Delight\Base64\Base64;
-use Delight\Cookie\Cookie;
-use Delight\Cookie\Session;
+use Pinga\Base64\Base64;
+use Pinga\Cookie\Cookie;
+use Pinga\Cookie\Session;
 use Pinga\Db\PdoDatabase;
 use Pinga\Db\PdoDsn;
 use Pinga\Db\Throwable\Error;
