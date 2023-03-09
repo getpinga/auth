@@ -13,7 +13,7 @@ namespace Pinga\Auth;
 
 use Pinga\Base64\Base64;
 use Pinga\Cookie\Cookie;
-use Pinga\Cookie\Session;
+use Pinga\Session\Session;
 use Pinga\Db\PdoDatabase;
 use Pinga\Db\PdoDsn;
 use Pinga\Db\Throwable\Error;
