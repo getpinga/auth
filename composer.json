@@ -5,7 +5,8 @@
 		"php": ">=8.1.0",
 		"ext-openssl": "*",
 		"pinga/base64": "^0.1",
-		"pinga/cookie": "^0.1",
+		"pinga/cookie": "^0.1",	
+		"pinga/session": "^0.1",
 		"pinga/db": "^0.1"
 	},
 	"type": "library",
