@@ -3,6 +3,7 @@
 namespace Pinga\Auth;
 
 use Pinga\Auth\UserManager;
+use Psr\Http\Message\ResponseInterface as Response;
 
 /**
  * Auto Logout for PHP-Auth (https://github.com/delight-im/PHP-Auth)
@@ -28,25 +29,27 @@ class AutoLogout
      * @param Int $statusCode Redirect Status code to set, default is: 301 "Moved Permanently"
      * @return VOID
      */
-    public function watch(Int $seconds, String $redirect=null, Callable $callback=null, Int $statusCode=301): Void
-    {
+    public function watch(int $seconds, string $redirect = null, callable $callback = null, int $statusCode = 301, Response $response): Response {
         if ($_SESSION[UserManager::SESSION_FIELD_LOGGED_IN] ?? false) {
             if ($l = ($_SESSION[self::SESSION_FIELD_LAST_ACTION] ?? false)) {
-                if (\time() > $l+$seconds) {
-                    \session_destroy();
-                    if ($callback)
-                        $callback($seconds, $redirect, $statusCode);
-                    if ($redirect) {
-                        $redirect .= (\strpos($redirect, '?') !== false ? '&' : '?') . self::GET_IS_REDIRECTED;
-                        if (!isset($_GET[self::GET_IS_REDIRECTED]))
-                            @\header("Location: {$redirect}", true, $statusCode);
-                        exit(\sprintf('<h2>Redirection failed</h2><p>Go to: <a href="%1$s">URL %1$s</a></p>', \htmlspecialchars($redirect)));
+                if (time() > $l + $seconds) {
+                    session_destroy();
+
+                    // Execute callback if provided
+                    if ($callback) {
+                        $response = $callback($seconds, $redirect, $statusCode, $response);
+                    }
+
+                    // Handle redirection
+                    if ($redirect && !isset($_GET[self::GET_IS_REDIRECTED])) {
+                        $redirect .= (strpos($redirect, '?') !== false ? '&' : '?') . self::GET_IS_REDIRECTED;
+                        return $response->withHeader('Location', $redirect)->withStatus($statusCode);
                     }
                 }
             }
-            $_SESSION[self::SESSION_FIELD_LAST_ACTION] = \time();
+            $_SESSION[self::SESSION_FIELD_LAST_ACTION] = time();
         }
-        return;
-    }
 
+        return $response;
+    }
 }
