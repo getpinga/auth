@@ -6,7 +6,7 @@
 		"ext-openssl": "*",
 		"pinga/base64": "^0.1",
 		"pinga/cookie": "^0.2",	
-		"pinga/session": "^0.1.3",
+		"pinga/session": "^0.1.4",
 		"pinga/db": "^0.1.3"
 	},
 	"type": "library",
