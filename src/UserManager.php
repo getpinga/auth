@@ -406,7 +406,7 @@ abstract class UserManager {
 			$whereMappings['selector'] = (string) $selector;
 		}
 
-		$whereMappings['user'] = (int) $userId;
+		$whereMappings['user_id'] = (int) $userId;
 
 		try {
 			$this->db->delete(

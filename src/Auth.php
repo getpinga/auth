@@ -116,7 +116,7 @@ final class Auth extends UserManager {
 				if (!empty($parts[0]) && !empty($parts[1])) {
 					try {
 						$rememberData = $this->db->selectRow(
-							'SELECT a.user, a.token, a.expires, b.email, b.username, b.status, b.roles_mask, b.force_logout FROM ' . $this->makeTableName('users_remembered') . ' AS a JOIN ' . $this->makeTableName('users') . ' AS b ON a.user = b.id WHERE a.selector = ?',
+							'SELECT a.user_id, a.token, a.expires, b.email, b.username, b.status, b.roles_mask, b.force_logout FROM ' . $this->makeTableName('users_remembered') . ' AS a JOIN ' . $this->makeTableName('users') . ' AS b ON a.user_id = b.id WHERE a.selector = ?',
 							[ $parts[0] ]
 						);
 					}
@@ -130,7 +130,7 @@ final class Auth extends UserManager {
 								// the cookie and its contents have now been proven to be valid
 								$valid = true;
 
-								$this->onLoginSuccessful($rememberData['user'], $rememberData['email'], $rememberData['username'], $rememberData['status'], $rememberData['roles_mask'], $rememberData['force_logout'], true);
+								$this->onLoginSuccessful($rememberData['user_id'], $rememberData['email'], $rememberData['username'], $rememberData['status'], $rememberData['roles_mask'], $rememberData['force_logout'], true);
 							}
 						}
 					}
@@ -500,7 +500,7 @@ final class Auth extends UserManager {
 			$this->db->insert(
 				$this->makeTableNameComponents('users_remembered'),
 				[
-					'user' => $userId,
+					'user_id' => $userId,
 					'selector' => $selector,
 					'token' => $tokenHashed,
 					'expires' => $expires
@@ -637,7 +637,7 @@ final class Auth extends UserManager {
 					try {
 						$this->db->delete(
 							$this->makeTableNameComponents('users_resets'),
-							[ 'user' => $confirmationData['user_id'] ]
+							[ 'user_id' => $confirmationData['user_id'] ]
 						);
 					}
 					catch (Error $e) {
@@ -1009,7 +1009,7 @@ final class Auth extends UserManager {
 
 		if ($openRequests < $maxOpenRequests) {
 			$this->throttle([ 'requestPasswordReset', $this->getIpAddress() ], 4, (60 * 60 * 24 * 7), 2);
-			$this->throttle([ 'requestPasswordReset', 'user', $userData['id'] ], 4, (60 * 60 * 24 * 7), 2);
+			$this->throttle([ 'requestPasswordReset', 'user_id', $userData['id'] ], 4, (60 * 60 * 24 * 7), 2);
 
 			$this->createPasswordResetRequest($userData['id'], $requestExpiresAfter, $callback);
 		}
@@ -1257,7 +1257,7 @@ final class Auth extends UserManager {
 
 		try {
 			$resetData = $this->db->selectRow(
-				'SELECT a.id, a.user, a.token, a.expires, b.email, b.resettable FROM ' . $this->makeTableName('users_resets') . ' AS a JOIN ' . $this->makeTableName('users') . ' AS b ON b.id = a.user WHERE a.selector = ?',
+				'SELECT a.id, a.user_id, a.token, a.expires, b.email, b.resettable FROM ' . $this->makeTableName('users_resets') . ' AS a JOIN ' . $this->makeTableName('users') . ' AS b ON b.id = a.user_id WHERE a.selector = ?',
 				[ $selector ]
 			);
 		}

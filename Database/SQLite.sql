@@ -33,7 +33,7 @@ CREATE INDEX "users_confirmations.user_id" ON "users_confirmations" ("user_id");
 
 CREATE TABLE "users_remembered" (
 	"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL CHECK ("id" >= 0),
-	"user" INTEGER NOT NULL CHECK ("user" >= 0),
+	"user_id" INTEGER NOT NULL CHECK ("user" >= 0),
 	"selector" VARCHAR(24) NOT NULL,
 	"token" VARCHAR(255) NOT NULL,
 	"expires" INTEGER NOT NULL CHECK ("expires" >= 0),
@@ -43,7 +43,7 @@ CREATE INDEX "users_remembered.user" ON "users_remembered" ("user");
 
 CREATE TABLE "users_resets" (
 	"id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL CHECK ("id" >= 0),
-	"user" INTEGER NOT NULL CHECK ("user" >= 0),
+	"user_id" INTEGER NOT NULL CHECK ("user" >= 0),
 	"selector" VARCHAR(20) NOT NULL,
 	"token" VARCHAR(255) NOT NULL,
 	"expires" INTEGER NOT NULL CHECK ("expires" >= 0),

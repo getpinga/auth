@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `users_confirmations` (
 
 CREATE TABLE IF NOT EXISTS `users_remembered` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   `selector` varchar(24) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `expires` int(10) unsigned NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `users_remembered` (
 
 CREATE TABLE IF NOT EXISTS `users_resets` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   `selector` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `token` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `expires` int(10) unsigned NOT NULL,
