@@ -1165,7 +1165,7 @@ final class Auth extends UserManager {
 	private function getOpenPasswordResetRequests($userId) {
 		try {
 			$requests = $this->db->selectValue(
-				'SELECT COUNT(*) FROM ' . $this->makeTableName('users_resets') . ' WHERE user = ? AND expires > ?',
+				'SELECT COUNT(*) FROM ' . $this->makeTableName('users_resets') . ' WHERE user_id = ? AND expires > ?',
 				[
 					$userId,
 					\time()
@@ -1210,7 +1210,7 @@ final class Auth extends UserManager {
 			$this->db->insert(
 				$this->makeTableNameComponents('users_resets'),
 				[
-					'user' => $userId,
+					'user_id' => $userId,
 					'selector' => $selector,
 					'token' => $tokenHashed,
 					'expires' => $expiresAt
@@ -1270,8 +1270,8 @@ final class Auth extends UserManager {
 				if (\password_verify($token, $resetData['token'])) {
 					if ($resetData['expires'] >= \time()) {
 						$newPassword = self::validatePassword($newPassword);
-						$this->updatePasswordInternal($resetData['user'], $newPassword);
-						$this->forceLogoutForUserById($resetData['user']);
+						$this->updatePasswordInternal($resetData['user_id'], $newPassword);
+						$this->forceLogoutForUserById($resetData['user_id']);
 
 						try {
 							$this->db->delete(
@@ -1284,7 +1284,7 @@ final class Auth extends UserManager {
 						}
 
 						return [
-							'id' => $resetData['user'],
+							'id' => $resetData['user_id'],
 							'email' => $resetData['email']
 						];
 					}
